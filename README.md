@@ -59,17 +59,17 @@
 <body>
   <h1>Una sorpresa solo per te</h1>
   <p>"Perché ogni giorno con te è un giorno speciale."</p>
-  
+
+  <button id="startMusic">Avvia la Musica</button>
+  <button id="changeTrack" class="hidden">Cambia Canzone</button>
+  <p id="instructions" class="hidden">Puoi cambiare canzone cliccando sul tasto sopra!</p>
+
   <video id="video" controls>
     <source src="videorara.MP4" type="video/mp4">
     Il tuo browser non supporta il video.
   </video>
 
   <p class="message hidden" id="finalMessage">Ancora non ti sei stancata? Okay, un'altra canzone per te!</p>
-
-  <button id="startMusic">Avvia la Musica</button>
-  <button id="changeTrack" class="hidden">Cambia Canzone</button>
-  <p id="instructions" class="hidden">Puoi cambiare canzone cliccando sul tasto sopra!</p>
 
   <canvas id="hearts"></canvas>
 
@@ -128,7 +128,7 @@
           speed: Math.random() * 2 + 1,
           rotation: Math.random() * 360,
           opacity: Math.random() * 0.5 + 0.5,
-          color: `#ff69b4`
+          color: `#ff0000` // Rosso per i cuori
         });
       }
 
