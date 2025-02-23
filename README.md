@@ -118,26 +118,42 @@
       canvas.height = window.innerHeight;
 
       const hearts = [];
-      const colors = ['#ff6b81', '#ff4757', '#ff7f50', '#ff6348'];
 
       function createHeart() {
-        const size = Math.random() * 20 + 10;
+        const size = Math.random() * 30 + 10;
         hearts.push({
           x: Math.random() * canvas.width,
           y: canvas.height + size,
           size,
           speed: Math.random() * 2 + 1,
-          color: colors[Math.floor(Math.random() * colors.length)]
+          rotation: Math.random() * 360,
+          opacity: Math.random() * 0.5 + 0.5,
+          color: `hsl(${Math.random() * 360}, 100%, 75%)`
         });
       }
 
       function drawHearts() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         hearts.forEach((heart, index) => {
-          ctx.fillStyle = heart.color;
+          ctx.save();
+          ctx.translate(heart.x, heart.y);
+          ctx.rotate((heart.rotation * Math.PI) / 180);
+          ctx.globalAlpha = heart.opacity;
           ctx.beginPath();
-          ctx.arc(heart.x, heart.y, heart.size / 2, 0, Math.PI * 2);
+          ctx.moveTo(0, -heart.size / 2);
+          ctx.bezierCurveTo(
+            heart.size / 2, -heart.size / 2,
+            heart.size / 2, heart.size / 2,
+            0, heart.size
+          );
+          ctx.bezierCurveTo(
+            -heart.size / 2, heart.size / 2,
+            -heart.size / 2, -heart.size / 2,
+            0, -heart.size / 2
+          );
+          ctx.fillStyle = heart.color;
           ctx.fill();
+          ctx.restore();
           heart.y -= heart.speed;
           if (heart.y + heart.size < 0) {
             hearts.splice(index, 1);
