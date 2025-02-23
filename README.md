@@ -32,6 +32,8 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
+      font-size: 2rem;
+      color: #ff0000; /* Rosso per i cuori */
     }
     .hidden {
       display: none;
@@ -54,10 +56,14 @@
     button:hover {
       background-color: #b52a6e;
     }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
   </style>
 </head>
 <body>
-  <h1>Una sorpresa per te</h1>
+  <h1>Una sorpresa solo per te</h1>
   <p>"Perché ogni giorno con te è un giorno speciale."</p>
 
   <button id="startMusic">Avvia la Musica</button>
@@ -71,7 +77,7 @@
 
   <p class="message hidden" id="finalMessage">Ancora non ti sei stancata? Okay, un'altra canzone per te!</p>
 
-  <canvas id="hearts"></canvas>
+  <div id="hearts"></div>
 
   <audio id="audio" src="song1.mp3" preload="auto"></audio>
 
@@ -85,6 +91,7 @@
     const startMusicButton = document.getElementById('startMusic');
     const changeTrackButton = document.getElementById('changeTrack');
     const instructions = document.getElementById('instructions');
+    const heartsContainer = document.getElementById('hearts');
 
     startMusicButton.addEventListener('click', () => {
       audio.play();
@@ -112,66 +119,17 @@
 
     // Heart animation
     function showHearts() {
-      const canvas = document.getElementById('hearts');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const hearts = [];
-
-      function createHeart() {
-        const size = Math.random() * 30 + 10;
-        hearts.push({
-          x: Math.random() * canvas.width,
-          y: canvas.height + size,
-          size,
-          speed: Math.random() * 2 + 1,
-          rotation: Math.random() * 360,
-          opacity: Math.random() * 0.5 + 0.5,
-          color: `#ff0000` // Rosso per i cuori
-        });
+      heartsContainer.innerHTML = ''; // Clear previous hearts
+      for (let i = 0; i < 100; i++) { // Increased number of hearts
+        const heart = document.createElement('div');
+        heart.textContent = '♥️';
+        heart.style.position = 'absolute';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = 100 + 'vh';
+        heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
+        heart.style.animation = `float ${Math.random() * 3 + 2}s ease-in infinite`;
+        heartsContainer.appendChild(heart);
       }
-
-      function drawHearts() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        hearts.forEach((heart, index) => {
-          ctx.save();
-          ctx.translate(heart.x, heart.y);
-          ctx.rotate((heart.rotation * Math.PI) / 180);
-          ctx.globalAlpha = heart.opacity;
-          ctx.beginPath();
-          ctx.moveTo(0, -heart.size / 2);
-          ctx.bezierCurveTo(
-            heart.size / 2, -heart.size / 2,
-            heart.size / 2, heart.size / 2,
-            0, heart.size
-          );
-          ctx.bezierCurveTo(
-            -heart.size / 2, heart.size / 2,
-            -heart.size / 2, -heart.size / 2,
-            0, -heart.size / 2
-          );
-          ctx.fillStyle = heart.color;
-          ctx.fill();
-          ctx.restore();
-          heart.y -= heart.speed;
-          if (heart.y + heart.size < 0) {
-            hearts.splice(index, 1);
-          }
-        });
-      }
-
-      function animate() {
-        drawHearts();
-        if (hearts.length > 0) {
-          requestAnimationFrame(animate);
-        }
-      }
-
-      for (let i = 0; i < 50; i++) { // Increased number of hearts
-        createHeart();
-      }
-      animate();
     }
   </script>
 </body>
