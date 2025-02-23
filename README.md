@@ -168,7 +168,7 @@
         }
       }
 
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 50; i++) { // Increased number of hearts
         createHeart();
       }
       animate();
