@@ -128,7 +128,7 @@
           speed: Math.random() * 2 + 1,
           rotation: Math.random() * 360,
           opacity: Math.random() * 0.5 + 0.5,
-          color: `hsl(${Math.random() * 360}, 100%, 75%)`
+          color: `#ff69b4`
         });
       }
 
