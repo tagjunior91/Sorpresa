@@ -109,6 +109,8 @@
 
       if (currentTrack === 1) { // song2.mp3 triggers the hearts
         showHearts();
+      } else {
+        heartsContainer.innerHTML = ''; // Clear hearts if not song2
       }
 
       shakeCount++;
