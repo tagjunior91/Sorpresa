@@ -63,7 +63,7 @@
   </style>
 </head>
 <body>
-  <h1>Una sorpresa solo per te</h1>
+  <h1>Una sorpresa per te</h1>
   <p>"Perché ogni giorno con te è un giorno speciale."</p>
   <p class="message" id="volumeMessage">Alza il volume 🎶</p>
 
