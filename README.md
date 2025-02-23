@@ -41,6 +41,19 @@
       font-size: 1.2rem;
       color: #555;
     }
+    button {
+      background-color: #d63384;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #b52a6e;
+    }
   </style>
 </head>
 <body>
@@ -54,6 +67,9 @@
 
   <p class="message hidden" id="finalMessage">Ancora non ti sei stancata? Okay, un'altra canzone per te!</p>
 
+  <button id="startMusic">Avvia la Musica</button>
+  <p id="instructions" class="hidden">Scuoti il telefono per cambiare canzone!</p>
+
   <canvas id="hearts"></canvas>
 
   <audio id="audio" src="song1.mp3" preload="auto"></audio>
@@ -65,6 +81,14 @@
 
     const audio = document.getElementById('audio');
     const message = document.getElementById('finalMessage');
+    const startMusicButton = document.getElementById('startMusic');
+    const instructions = document.getElementById('instructions');
+
+    startMusicButton.addEventListener('click', () => {
+      audio.play();
+      instructions.classList.remove('hidden');
+      startMusicButton.classList.add('hidden');
+    });
 
     function changeTrack() {
       currentTrack = (currentTrack + 1) % audioTracks.length;
