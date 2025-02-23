@@ -105,24 +105,34 @@
       }
     }
 
-    // Shake detection
+    // Shake detection with improved sensitivity
     let lastShakeTime = 0;
+    let lastX = null;
+    let lastY = null;
+    let lastZ = null;
 
     window.addEventListener('devicemotion', (event) => {
       const acceleration = event.accelerationIncludingGravity;
-      const shakeThreshold = 15;
+      const shakeThreshold = 12; // Lowered threshold for better sensitivity
       const currentTime = Date.now();
 
-      if (
-        Math.abs(acceleration.x) > shakeThreshold ||
-        Math.abs(acceleration.y) > shakeThreshold ||
-        Math.abs(acceleration.z) > shakeThreshold
-      ) {
-        if (currentTime - lastShakeTime > 1000) {
+      if (lastX !== null && lastY !== null && lastZ !== null) {
+        const deltaX = Math.abs(lastX - acceleration.x);
+        const deltaY = Math.abs(lastY - acceleration.y);
+        const deltaZ = Math.abs(lastZ - acceleration.z);
+
+        if (
+          (deltaX > shakeThreshold || deltaY > shakeThreshold || deltaZ > shakeThreshold) &&
+          currentTime - lastShakeTime > 1000
+        ) {
           changeTrack();
           lastShakeTime = currentTime;
         }
       }
+
+      lastX = acceleration.x;
+      lastY = acceleration.y;
+      lastZ = acceleration.z;
     });
 
     // Heart animation
