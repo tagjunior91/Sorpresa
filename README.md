@@ -39,7 +39,7 @@
       display: none;
     }
     .message {
-      margin-top: 20px;
+      margin-top: 10px;
       font-size: 1.2rem;
       color: #555;
     }
@@ -51,7 +51,7 @@
       font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 10px;
     }
     button:hover {
       background-color: #b52a6e;
@@ -65,17 +65,18 @@
 <body>
   <h1>Una sorpresa solo per te</h1>
   <p>"Perché ogni giorno con te è un giorno speciale."</p>
+  <p class="message" id="volumeMessage">Alza il volume 🎶</p>
 
   <button id="startMusic">Avvia la Musica</button>
+  <p class="message hidden" id="instructions">Puoi cambiare canzone cliccando sul tasto sotto!</p>
   <button id="changeTrack" class="hidden">Cambia Canzone</button>
-  <p id="instructions" class="hidden">Puoi cambiare canzone cliccando sul tasto sopra!</p>
+
+  <p class="message hidden" id="finalMessage">Ancora non ti sei stancata? Okay, un'altra canzone per te! Ma se scorri in basso c’è anche un video per te</p>
 
   <video id="video" controls>
     <source src="videorara.MP4" type="video/mp4">
     Il tuo browser non supporta il video.
   </video>
-
-  <p class="message hidden" id="finalMessage">Ancora non ti sei stancata? Okay, un'altra canzone per te!</p>
 
   <div id="hearts"></div>
 
@@ -88,6 +89,7 @@
 
     const audio = document.getElementById('audio');
     const message = document.getElementById('finalMessage');
+    const volumeMessage = document.getElementById('volumeMessage');
     const startMusicButton = document.getElementById('startMusic');
     const changeTrackButton = document.getElementById('changeTrack');
     const instructions = document.getElementById('instructions');
@@ -98,6 +100,7 @@
       instructions.classList.remove('hidden');
       changeTrackButton.classList.remove('hidden');
       startMusicButton.classList.add('hidden');
+      volumeMessage.classList.add('hidden');
     });
 
     changeTrackButton.addEventListener('click', changeTrack);
