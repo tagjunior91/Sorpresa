@@ -68,7 +68,8 @@
   <p class="message hidden" id="finalMessage">Ancora non ti sei stancata? Okay, un'altra canzone per te!</p>
 
   <button id="startMusic">Avvia la Musica</button>
-  <p id="instructions" class="hidden">Scuoti il telefono per cambiare canzone!</p>
+  <button id="changeTrack" class="hidden">Cambia Canzone</button>
+  <p id="instructions" class="hidden">Puoi cambiare canzone cliccando sul tasto sopra!</p>
 
   <canvas id="hearts"></canvas>
 
@@ -82,13 +83,17 @@
     const audio = document.getElementById('audio');
     const message = document.getElementById('finalMessage');
     const startMusicButton = document.getElementById('startMusic');
+    const changeTrackButton = document.getElementById('changeTrack');
     const instructions = document.getElementById('instructions');
 
     startMusicButton.addEventListener('click', () => {
       audio.play();
       instructions.classList.remove('hidden');
+      changeTrackButton.classList.remove('hidden');
       startMusicButton.classList.add('hidden');
     });
+
+    changeTrackButton.addEventListener('click', changeTrack);
 
     function changeTrack() {
       currentTrack = (currentTrack + 1) % audioTracks.length;
@@ -104,36 +109,6 @@
         message.classList.remove('hidden');
       }
     }
-
-    // Shake detection with improved sensitivity
-    let lastShakeTime = 0;
-    let lastX = null;
-    let lastY = null;
-    let lastZ = null;
-
-    window.addEventListener('devicemotion', (event) => {
-      const acceleration = event.accelerationIncludingGravity;
-      const shakeThreshold = 12; // Lowered threshold for better sensitivity
-      const currentTime = Date.now();
-
-      if (lastX !== null && lastY !== null && lastZ !== null) {
-        const deltaX = Math.abs(lastX - acceleration.x);
-        const deltaY = Math.abs(lastY - acceleration.y);
-        const deltaZ = Math.abs(lastZ - acceleration.z);
-
-        if (
-          (deltaX > shakeThreshold || deltaY > shakeThreshold || deltaZ > shakeThreshold) &&
-          currentTime - lastShakeTime > 1000
-        ) {
-          changeTrack();
-          lastShakeTime = currentTime;
-        }
-      }
-
-      lastX = acceleration.x;
-      lastY = acceleration.y;
-      lastZ = acceleration.z;
-    });
 
     // Heart animation
     function showHearts() {
