@@ -9,7 +9,7 @@
     body {
       font-family: 'Quicksand', sans-serif;
       text-align: center;
-      background-color: #ffeaf2;
+      background-color: #ffffff; /* Sfondo bianco */
       color: #333;
       margin: 0;
       padding: 20px;
@@ -44,8 +44,8 @@
   </style>
 </head>
 <body>
-  <h1>Una sorpresa per te</h1>
-  <p>"Sai che sei la mia persona speciale?"</p>
+  <h1>Una sorpresa solo per te</h1>
+  <p>"Perché ogni giorno con te è un giorno speciale."</p>
   
   <video id="video" controls>
     <source src="videorara.MP4" type="video/mp4">
@@ -56,7 +56,7 @@
 
   <canvas id="hearts"></canvas>
 
-  <audio id="audio" src="song1.mp3"></audio>
+  <audio id="audio" src="song1.mp3" preload="auto"></audio>
 
   <script>
     const audioTracks = ["song1.mp3", "song2.mp3", "song3.mp3", "song4.mp3"];
